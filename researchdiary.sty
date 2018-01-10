@@ -1,0 +1,61 @@
+\ProvidesPackage{researchdiary}
+
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[hmargin=2cm,vmargin=2.5cm]{geometry}
+\usepackage{wrapfig}
+\usepackage{fontawesome}
+\usepackage{etoolbox}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\organization}[2]{
+    \def\@organization{#1}
+    \def\@org@link{#2}
+}
+\newcommand{\email}[1]{
+    \def\@email{#1}
+}
+\renewcommand{\title}[2]{
+    \def\@title{#2}
+    \def\@shorttitle{#1}
+}
+\renewcommand{\abstract}[1]{
+    \def\@abstract{#1}
+}
+
+\renewcommand{\maketitle}{
+%%%%%%%%%%% HEADER / FOOTER %%%%%%%%%%%
+\pagestyle{fancy}
+\setlength\parskip{0.1in}
+\setlength\headheight{15pt}
+\titlespacing*\section{0pt}{20pt}{0pt}
+\titlespacing*\subsection{0pt}{8pt}{-4pt}
+\titlespacing*\subsubsection{0pt}{4pt}{-8pt}
+
+\rhead{\textsc{\@date}}
+\chead{\textsc{\@shorttitle}}
+\lhead{\textsc{\@author}}
+\rfoot{\textsc{\thepage}}
+\cfoot{\textit{Last modified: \today}}
+\lfoot{\textsc{\@organization}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{wrapfigure}{r}{0.125\textwidth}
+    \vspace{-10pt}
+    \centering
+    \href{\@org@link}{
+    \includegraphics[width=0.13\textwidth]{logo}
+    }
+    \vspace{-100pt}
+\end{wrapfigure}
+
+{\Huge\noindent\@title}\\[4mm]
+\@author,
+\href{\@org@link}{%
+    \@organization \
+    \faExternalLink
+}\\[1mm]%
+\href{mailto://\@email}{\@email}\\[12mm]%
+\textit{\@abstract}\vspace{-10pt}}
